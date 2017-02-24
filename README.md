@@ -3,3 +3,7 @@
 - Selenium WebDriver usage
 - Web Scraping
 - Page Object
+
+hit:
+npm start
+to launch app.

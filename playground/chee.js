@@ -7,6 +7,7 @@ var htmlPage = `
         <li class="list-item">Pear</li>
         <li class="list-item">Orange</li>
         <li class="list-item">Peach</li>
+        <li class="other">Non freuit</li>
     </ul>
 `;
 
@@ -16,7 +17,13 @@ console.log(`the whole page:`, $.html());
 console.log('Selected items only: ',$('.list-item').text());
 
 var elArray = [];
-$('.list-item').each(function(){
-                    elArray.push($(this).text());
-                    });
+$('.list-item').each(
+  function(i, element){
+    // elArray.push($(this).text());
+    elArray[i]={
+      title: $(element).text()
+    };
+    // console.log($(element).text());
+  });
 console.log(elArray);
+console.log($.text());
