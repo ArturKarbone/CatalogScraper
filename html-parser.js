@@ -1,25 +1,29 @@
 const cheerio = require('cheerio');
 
 var getElementArray = (htmlPage, classToSearch) => {
-
-  var returnedArray=[];
-  // seach values for all provided classes
+  var returnObj = {};
   return new Promise((resolve, reject) => {
-    //classToSearch must be an Array
-    if (classToSearch.isArray || classToSearch.length<1){
-      reject('Must provide an array with a list of classes to search');
-    }
-      let $ = cheerio.load(htmlPage);
-      $(classToSearch[0]).each( function (i, element) {
-          console.log('Elements that correspond to: '+classToSearch+": "+$(element).text());
-          returnedArray.push('Elements that correspond to: '+classToSearch+": "+$(element).text());
-      });
+    let $ = cheerio.load(htmlPage);
+    for (var a = 0; a < classToSearch.itemToSearch.length; a++){
+      var itemsMatch = $(classToSearch.itemToSearch[a]).length;
+      // loop throug all tags and classes to find needed text;
 
-      if (returnedArray.length>0) {
-        resolve(returnedArray);
+      if (itemsMatch>1){
+        // corresponds to contact info. all info is just ".info > div"
+        $(classToSearch.itemToSearch[a]).each( function (i, element) {
+          returnObj[classToSearch.propToReturn[4][i]] = $(element).text();
+          // 4 - element is a sub array with contact info properties;
+        });
+      } else {
+        // when needed text corresponds to a unique selector
+        returnObj[classToSearch.propToReturn[a]]=$(classToSearch.itemToSearch[a]).text();
+      }
+    }
+      if (returnObj) {
+        resolve(returnObj);
       }
         reject('No items found');
-      });
+    });
 }
 
 module.exports = {

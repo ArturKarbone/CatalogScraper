@@ -5,13 +5,13 @@ var {htmlPage} = require('./singleCompany.js');
 
 // goods part
 var companyFinder = '.card-left-side > h1';
-var titleFinder = '.main-wrap > h2';
+var titleFinder = '.descript-wrap > h2';
 var descriptionFinder = '.descript-wrap > p';
 var keywords = '.descript-wrap > i';
 
 // contact info parent
-var contactName = '.info > div > b';
-var contactPosition = '.info > div';
+var contactInfo = '.info > div';
+var email = "document-location-href";
 
 
 var tagArr = [
@@ -19,80 +19,53 @@ var tagArr = [
   titleFinder,
   descriptionFinder,
   keywords,
-  contactName,
-  contactPosition,
+  contactInfo,
+  email
 ];
+
 var returnPropArr = [
   'companyName',
   'productTitle',
   'productDescription',
   'keywords',
-  'contactName',
-  'contactPhone',
-]
+    [
+      'contactName',
+      'contactPostition',
+      'contactPhone'
+    ],
+  'email'
+];
 var classToSearch = {
   itemToSearch: tagArr,
   propToReturn: returnPropArr
 };
-console.log(classToSearch);
+// console.log(classToSearch);
 var getElementArray = (htmlPage, classToSearch) => {
 
   var returnedArray=[];
   // seach values for all provided classes
-  console.log(typeof classToSearch.itemToSearch);
-  classToSearch.itemToSearch.forEach(function (i, element){
-    console.log("searched tag: "+element);
-  });
+
   return new Promise((resolve, reject) => {
-    //classToSearch must be an Array
-    // if (classToSearch.isArray || classToSearch.length<1){
-    //   reject('Must provide an array with a list of classes to search');
-    // }
       let $ = cheerio.load(htmlPage);
+      var returnObj = {};
+      for (var a = 0; a < classToSearch.itemToSearch.length; a++){
+        var itemsMatch = $(classToSearch.itemToSearch[a]).length;
+        // loop throug all tags and classes to find needed text;
+        console.log('Matches found:'+itemsMatch);
 
-      // classToSearch.forEach(function(singleClassToSearch){
-      //   $(singleClassToSearch).each(function(i, element){
-      //       console.log($(element).children().length);
-      //       returnedArray.push({
-      //         title:$(this).text()
-      //       });
-      //   });
-      // });
-      var jsonData = {
-        title:"",
-        provider:"",
-        description:""
+        if (itemsMatch>1){
+          // corresponds to contact info. all info is just ".info > div"
+          $(classToSearch.itemToSearch[a]).each( function (i, element) {
+            console.log($(element).text());
+            returnObj[classToSearch.propToReturn[4][i]] = $(element).text();
+            // 4 - element is a sub array with contact info properties;
+          });
+        } else {
+          // when needed text corresponds to a unique selector
+          returnObj[classToSearch.propToReturn[a]]=$(classToSearch.itemToSearch[a]).text();
+          console.log($(classToSearch.itemToSearch[a]).text());
+        }
       }
-      var returnObj = {
-
-      };
-      $(classToSearch.itemToSearch).each( function (i, element) {
-
-
-          console.log(returnObj);
-          // console.log("title: "+$(element).find('.item-head').text());
-          // console.log("current DIVs class: "+ $(element).attr('class'));
-          // console.log('Chilren count: '+$(element).children().length);
-          console.log('Elements that correspond to: '+classToSearch.itemToSearch+": "+$(element).text());
-          returnObj[classToSearch.propToReturn] = $(element).text();
-          // if ($(element).find('.item-head').text()){
-          //   jsonData.title = $(element).find('.item-head').text();
-          //   return;
-          // } else if ($(element).attr('class')==='gray'){
-          //   jsonData.provider = $(element).text();
-          //   return;
-          // } else if ($(element).attr('class')==='c-descript'){
-          //   jsonData.description = $(element).text();
-          //   return;
-          // }
-          // var provider = $(element).find('.gray').text();
-          // var description = $(element).find('c-descript').text();
-          // console.log(`Title of product: ${title};
-          //             Provider of product ${provider};
-          //             Product description ${description};`);
-      });
-      // console.log("*********** Total JSONdata: ******** ");
-      // console.log(jsonData);
 
       if (returnObj) {
         resolve(returnObj);
