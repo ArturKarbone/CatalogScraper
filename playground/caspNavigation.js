@@ -6,7 +6,9 @@ const casper = require('casper').create({
     encoding: 'utf8'
   },
   verbose: true,
+  clientScripts: ['https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js']
 });
+
 var links = [];
 var pages = [];
 
@@ -15,14 +17,16 @@ function getLinks(){
   return Array.prototype.map.call(links, function(e){
     return e.innerHTML+ ": "+e.getAttribute('href');
   });
-}
+
+};
 
 function getPages(){
   var pages = document.querySelectorAll('.tech a');
   return Array.prototype.map.call(pages, function(e){
     return e.innerHTML+ ": "+e.getAttribute('href');
-  })
-}
+  });
+};
+
 
 var linkId = "#mtd_97";
 casper.start('http://ruexport.org/rus_export_catalog/?action=areas&s=0&id=28',function(){
@@ -35,6 +39,14 @@ casper.then(function(){
 
 casper.then(function(){
   pages = this.evaluate(getPages);
+});
+
+casper.then(function(){
+  this.click('.item-head');
+});
+casper.then(function(){
+  this.echo('Making the screenShot');
+  casper.page.render('a2.png');
 });
 
 
