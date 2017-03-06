@@ -4,10 +4,14 @@
 - Web Scraping
 - Page Object
 
-hit:
+### hit:
 npm start
 to launch app.
 
-Gulp task is also avaliable ('default') just put:
+### Gulp task is also avaliable ('default') just put:
 `gulp`
 in the terminal. It just runs 'node app.js' by now.
+
+### Gulp task to test JSON to CSV export:
+`gulp json2csv`
+in the terminal
