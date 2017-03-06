@@ -8,3 +8,11 @@ gulp.task('default', function(cb){
     cb(e);
   });
 });
+
+gulp.task('json2csv', function(cb){
+  exec("node playground/jsontocsv.js", function(e, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(e);
+  });
+});
