@@ -16,3 +16,11 @@ gulp.task('json2csv', function(cb){
     cb(e);
   });
 });
+
+gulp.task('casper', function(cb){
+  exec("casperjs playground/swipingPages.js", function(e, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(e);
+  });
+});

@@ -15,3 +15,7 @@ in the terminal. It just runs 'node app.js' by now.
 ### Gulp task to test JSON to CSV export:
 `gulp json2csv`
 in the terminal
+
+### Gulp task to run Casper.js will take navigation steps screenShots:
+`gulp casper`
+in the terminal (both phantom.js and casper.js must be installed);
