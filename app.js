@@ -22,7 +22,7 @@ var getPage = request(page, function (error, response, html){
       chee.getElementArray(html, whatToSearch).then(
         // Got an obejct as a result
         (result)=>{
-          console.log('***** Found reaults: (before encoding)******');
+          console.log('***** Found results: (before encoding)******');
           console.log(result);
           // Encode object props to UTF8
           encode.encode(result).then(
