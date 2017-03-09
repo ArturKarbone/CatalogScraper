@@ -4,9 +4,12 @@
 - Web Scraping
 - Page Object
 
-### hit:
-npm start
-to launch app.
+### launch
+
+- brew install casperjs (for Mac)
+- npm install -g casperjs (alternatively)
+- npm install
+- npm start
 
 ### Gulp task is also avaliable ('default') just put:
 `gulp`
