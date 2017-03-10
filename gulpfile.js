@@ -24,3 +24,11 @@ gulp.task('casper', function(cb){
     cb(e);
   });
 });
+
+gulp.task('osmos', function(cb){
+  exec("node osmos/osmo.js", function(e, stdout, stderr) {
+    console.log(stdout);
+    console.log(stderr);
+    cb(e);
+  });
+});
