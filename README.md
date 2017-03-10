@@ -22,3 +22,7 @@ in the terminal
 ### Gulp task to run Casper.js will take navigation steps screenShots:
 `gulp casper`
 in the terminal (both phantom.js and casper.js must be installed);
+
+### Gulp task to run OSMOS parser will take the whole catalog division and export it to SCV:
+`gulp osmos`
+in the terminal (osmosis.js node package must be installed)
