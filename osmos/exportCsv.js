@@ -9,7 +9,8 @@ var fields = [
   'productKeywords',
   'contactName',
   'contactPosition',
-  'contactPhone'
+  'contactPhone',
+  'email'
     // tableHeader.propToReturn[5], //email
   ]; //these must be equal to JSON prop names
 var fieldNames = [
@@ -20,7 +21,7 @@ var fieldNames = [
     'Contact person name',
     'Position in company',
     'Phone number',
-    // 'email'
+    'email'
   ]; //these make things pretty
 
 

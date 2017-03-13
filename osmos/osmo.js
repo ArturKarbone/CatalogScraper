@@ -1,8 +1,8 @@
 const osmosis = require('osmosis');
 const fs = require('fs');
 
-var encode = require('./encodeArr');
-const exportCsv = require('./exportCsv.js');
+var {saveToFile} = require('./writeToFile');
+
 
 var companyProfile = {
     company: '.card-left-side > h1',
@@ -12,7 +12,7 @@ var companyProfile = {
     contactName: '.info > div:nth-child(1)',
     contactPosition: '.info > div:nth-child(2)',
     contactPhone: '.info > div:nth-child(3)',
-
+    email: '.info > button:source'
 };
 var companies=[];
 
@@ -27,28 +27,9 @@ osmosis //loop through links and visit them on one page
     .set(companyProfile)
     .delay(Math.random(3000)) // some sort of delay.
     .data(function(data) {
-        // console.log(data);
         companies.push(data);
     })
     .done(function() {
-        // encode to utf8
-        encode.encode(companies).then(
-            (encodedData) => {
-                    exportCsv.convertJson(encodedData).then(
-                    (csv) => {
-                        // write to filesystem
-                        console.log(csv);
-                        fs.writeFile('data.csv', csv, function(err) {
-                          if(err) console.error(err);
-                          else console.log('Data Saved to data.csv file');
-                        });
-                    },
-                    (failedToCSV) => {
-                        console.log('Failed at converting to CSV, ' + failedToCSV);
-                    }).catch((e) => {
-                    console.log('Failed at  writing to fileSystem');
-                });
-            }, (failedEncoding) => {
-                console.log('Failed at encoding data, ' + failedEncoding);
-            });
+        // prettifyEmail(companies);
+        saveToFile(companies);
     });
