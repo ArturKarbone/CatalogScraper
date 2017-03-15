@@ -3,6 +3,7 @@ const fs = require('fs');
 
 var {saveToFile} = require('./writeToFile');
 var {makeEmailPretty} = require('./prettifyEmail');
+var {getEmail} = require('./get-email');
 
 var companyProfile = {
     company: '.card-left-side > h1',
@@ -12,7 +13,21 @@ var companyProfile = {
     contactName: '.info > div:nth-child(1)',
     contactPosition: '.info > div:nth-child(2)',
     contactPhone: '.info > div:nth-child(3)',
-    email: '.info > span > button:source'
+    email: [ // TODO
+      osmosis
+        .find('.info > script')
+        .set('script')
+        .data(function(data){
+          getEmail(data.script).then(
+            (cleanEmail)=>{
+              return cleanEmail;
+            }
+          ).catch((e)=>{
+            console.log('Error while obtainig email: ', e);
+            return "not found a email";
+          });
+        })
+    ]
 };
 var companies=[];
 
