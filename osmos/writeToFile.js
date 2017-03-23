@@ -2,15 +2,15 @@ const fs = require('fs');
 const encode = require('./encodeArr');
 const exportCsv = require('./exportCsv.js');
 
-saveToFile = (companies) => {
+saveToFile = (companies, fileName) => {
   encode.encode(companies).then(
       (encodedData) => {
           exportCsv.convertJson(encodedData).then(
               (csv) => {
                   // console.log(csv);
-                  fs.writeFile('data.csv', csv, function(err) {
+                  fs.writeFile(fileName, csv, function(err) {
                       if (err) console.error(err);
-                      else console.log('Data Saved to data.csv file');
+                      else console.log('Data Saved to '+fileName+' file');
                   });
               },
               (failedToCSV) => {

@@ -11,8 +11,14 @@ getEmail = (data) => {
                         resolve(cleanEmail);
                     }
                 )
+            },
+            (noEmail) => {
+              //Happens when no e-mail button was on page
+              // need to resolve anyway
+              resolve('No email happened to be on page');
             }
         ).catch((e) => {
+            resolve(e);
             console.log(e);
         });
     });

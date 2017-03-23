@@ -10,7 +10,7 @@ var fields = [
   'contactName',
   'contactPosition',
   'contactPhone',
-  'email'
+  'emailScript'
     // tableHeader.propToReturn[5], //email
   ]; //these must be equal to JSON prop names
 var fieldNames = [
@@ -33,7 +33,7 @@ var convertJson = function(data){
                         fields: fields,
                         fieldNames:fieldNames,
                         quotes: '',
-                        del: ';'
+                        del: '!!!'
                       });
     if(csv){
       // console.log('CSV created');

@@ -17,6 +17,7 @@
 parseScript = (script) => {
     return new Promise((resolve, reject) => {
         if ((typeof script) !== 'string') {
+            console.log('rejected because ',typeof script)
             reject('Must provide a string form of email hidinng script');
         }
         var arr = script.split('\\');
